@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#58cc02"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
+<title>Rooster Discipline</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff;--card:#fff;--ink:#4b4b4b;--mut:#9a9a9a;--line:#e5e5e5;--soft:#f7f7f7;--g:#58cc02;--gd:#58a700;--b:#1cb0f6;--bd:#1899d6;--r:#ff4b4b;--rd:#ea2b2b;--y:#ffc800;--yd:#e5b400;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#131f24;--card:#1f2c34;--ink:#f1f7fb;--mut:#7d909a;--line:#37464f;--soft:#202f36}}
+:root[data-theme="dark"]{--bg:#131f24;--card:#1f2c34;--ink:#f1f7fb;--mut:#7d909a;--line:#37464f;--soft:#202f36}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Nunito,system-ui,sans-serif;font-weight:700;min-height:100%;padding-bottom:84px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
+#app{max-width:520px;margin:auto}
+header{position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);z-index:9;display:flex;justify-content:space-between;padding:12px 18px;border-bottom:2px solid var(--line);font-weight:900;font-size:17px}
+header span{display:flex;gap:5px;align-items:center}
+main{padding:16px 16px 8px}
+.btn{display:block;width:100%;font:900 15px Nunito,sans-serif;text-transform:uppercase;letter-spacing:.8px;border:0;border-radius:16px;padding:15px;color:#fff;background:var(--g);box-shadow:0 4px 0 var(--gd);cursor:pointer;margin-bottom:12px}
+.btn:active{transform:translateY(4px);box-shadow:none}
+.btn.b{background:var(--b);box-shadow:0 4px 0 var(--bd)}.btn.r{background:var(--r);box-shadow:0 4px 0 var(--rd)}
+.btn.ghost{background:var(--card);color:var(--b);border:2px solid var(--line);box-shadow:0 4px 0 var(--line)}
+.btn.sm{display:inline-block;width:auto;padding:10px 14px;font-size:13px;margin:4px}
+.card{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:14px;margin-bottom:12px}
+.coach{display:flex;align-items:center;gap:6px;margin-bottom:12px}
+.bubble{position:relative;border:2px solid var(--line);border-radius:16px;padding:12px 14px;font-size:15px;line-height:1.35;flex:1}
+.bubble::before{content:"";position:absolute;left:-9px;top:26px;width:14px;height:14px;background:var(--bg);border-left:2px solid var(--line);border-bottom:2px solid var(--line);transform:rotate(45deg)}
+h2{font-size:20px;margin:6px 0 10px;font-weight:900}
+.mut{color:var(--mut);font-size:13px}
+.path{display:flex;flex-direction:column;align-items:center;gap:14px;padding:14px 0 24px}
+.node{width:66px;height:62px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;color:#fff;background:#e5e5e5;box-shadow:0 6px 0 #c9c9c9;position:relative;font-weight:900}
+.node.done{background:var(--g);box-shadow:0 6px 0 var(--gd)}
+.node.now{background:var(--b);box-shadow:0 6px 0 var(--bd);animation:pulse 1.6s infinite}
+.node.gold{background:var(--y);box-shadow:0 6px 0 var(--yd)}
+.node .lab{position:absolute;top:-30px;background:var(--card);color:var(--b);border:2px solid var(--line);border-radius:10px;padding:2px 9px;font-size:12px;white-space:nowrap}
+@keyframes pulse{50%{transform:scale(1.08)}}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat{text-align:center}.stat b{display:block;font-size:26px}
+.q{display:flex;align-items:center;gap:12px;cursor:pointer}.q.done{opacity:.55}
+.chk{width:30px;height:30px;border-radius:50%;border:3px solid var(--line);display:flex;align-items:center;justify-content:center;color:#fff;flex:none}
+.q.done .chk{background:var(--g);border-color:var(--g)}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;text-align:center;font-size:13px}
+.cal div{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:10px;background:var(--soft)}
+.cal .e{background:var(--r);color:#fff}.cal .c{background:var(--g);color:#fff}.cal .t{outline:3px solid var(--y)}.cal .x{opacity:.4}.cal .h{background:none;font-size:11px;color:var(--mut)}
+.bar{height:14px;background:var(--line);border-radius:9px;overflow:hidden}.bar i{display:block;height:100%;background:var(--y);border-radius:9px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:8px 0}
+.ach{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.ach div{text-align:center;border:2px solid var(--line);border-radius:14px;padding:10px 4px;font-size:11px;opacity:.45}
+.ach div.on{opacity:1;border-color:var(--y);background:color-mix(in srgb,var(--y) 14%,transparent)}.ach span{font-size:28px;display:block}
+nav{position:fixed;bottom:0;left:0;right:0;background:var(--bg);border-top:2px solid var(--line);display:flex;justify-content:center;padding-bottom:env(safe-area-inset-bottom,0px);z-index:9}
+nav button{flex:1;max-width:130px;background:none;border:0;font:900 11px Nunito,sans-serif;color:var(--mut);padding:9px 0 7px;text-transform:uppercase;cursor:pointer}
+nav button span{display:block;font-size:24px}nav button.on{color:var(--b)}
+.ov{position:fixed;inset:0;background:#000a;display:none;align-items:center;justify-content:center;padding:18px;z-index:20}.ov.on{display:flex}
+.ov .card{max-width:420px;width:100%;text-align:center;margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:12px 0}
+.urge{position:fixed;inset:0;background:var(--bg);z-index:30;display:none;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;gap:14px}.urge.on{display:flex}
+.breath{width:150px;height:150px;border-radius:50%;background:var(--b);animation:br 8s infinite ease-in-out;display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;font-weight:900}
+@keyframes br{0%,100%{transform:scale(.7)}50%{transform:scale(1.15)}}
+.time{font-size:54px;font-weight:900;font-variant-numeric:tabular-nums}
+#toast{position:fixed;left:50%;bottom:100px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:30px;font-size:14px;display:none;z-index:40;max-width:90%;text-align:center}
+.cf{position:fixed;top:-20px;width:10px;height:14px;z-index:50;animation:fall 2.2s linear forwards;pointer-events:none}
+@keyframes fall{to{transform:translateY(105vh) rotate(720deg)}}
+.seg{display:flex;gap:6px}.seg .btn{margin:0}
+.rw{display:inline-block;transform-origin:50% 92%;flex:none}.rw svg{display:block;overflow:visible}
+.m-happy{animation:bob 2.2s ease-in-out infinite}.m-proud{animation:pop 1.5s ease-in-out infinite}.m-mad{animation:shake 1.6s ease-in-out infinite}.m-sad{animation:sag 3s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-5px)}}@keyframes pop{0%,100%{transform:scale(1)}50%{transform:scale(1.07) rotate(-2deg)}}@keyframes shake{0%,60%,100%{transform:none}68%{transform:translateX(-5px) rotate(-3deg)}76%{transform:translateX(5px) rotate(3deg)}84%{transform:translateX(-3px)}}@keyframes sag{50%{transform:translateY(4px) rotate(-3deg)}}
+.eye{transform-box:fill-box;transform-origin:center;animation:blink 4s infinite}@keyframes blink{0%,94%,100%{transform:scaleY(1)}97%{transform:scaleY(.1)}}
+@media(prefers-reduced-motion:reduce){.rw,.eye,.node.now,.breath{animation:none}}
+.wk{display:flex;gap:4px;margin-top:6px}.wd{width:22px;height:22px;border-radius:50%;background:var(--soft);font-size:10px;display:flex;align-items:center;justify-content:center}.wd.c{background:var(--g);color:#fff}.wd.e{background:var(--r);color:#fff}
+.in{width:100%;padding:12px;border:2px solid var(--line);border-radius:12px;background:var(--soft);color:var(--ink);font:800 16px Nunito,sans-serif;margin:8px 0}
+nav button span{font-size:21px}nav button{font-size:10px}
+.ach div span{font-size:calc(24px + var(--p,1)*1.6px)}.ach .on span{filter:drop-shadow(0 0 calc(var(--p,1)*1.2px) #ff9600)}
+.lb{display:flex;align-items:center;gap:8px;margin:7px 0}.lb .bar{flex:1}
+.code{font-size:22px;letter-spacing:3px;font-weight:900;color:var(--b)}
+</style></head>
+<body><div id="app">
+<header><span>🔥 <b id="hs">0</b></span><span>⚡ <b id="hx">0</b></span><span>💎 <b id="hg">0</b></span></header>
+<main id="view"></main></div>
+<nav><button data-a="tab" data-t="path"><span>🏠</span>Path</button><button data-a="tab" data-t="quests"><span>🎯</span>Quests</button><button data-a="tab" data-t="stats"><span>📊</span>Stats</button><button data-a="tab" data-t="squad"><span>🤝</span>Squad</button><button data-a="tab" data-t="shop"><span>🛍️</span>Shop</button><button data-a="tab" data-t="me"><span>👤</span>Me</button></nav>
+<div class="ov" id="modal"></div>
+<div class="urge" id="urge"></div>
+<div id="toast"></div>
+<input type="file" id="file" accept="application/json" style="display:none">
+<script>
+const KEY='discipline-ledger.v1',$=s=>document.querySelector(s),pad=n=>String(n).padStart(2,'0');
+const dk=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()),today=()=>dk(new Date());
+const pk=s=>{const[a,b,c]=s.split('-').map(Number);return new Date(a,b-1,c)},add=(d,n)=>new Date(d.getFullYear(),d.getMonth(),d.getDate()+n),diff=(a,b)=>Math.round((pk(b)-pk(a))/864e5);
+function load(){let x={};try{x=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){}
+ const s={startDate:today(),events:[],cleanChecks:{},xp:0,gems:0,achievements:[],checkInXPDays:[],quests:{},urges:0,hard:true,mute:false,auto:true,nick:'',joined:[],owned:[],outfit:{},week:5,...x};
+ ['events','achievements','checkInXPDays','owned','joined'].forEach(k=>{if(!Array.isArray(s[k]))s[k]=[]});if(!s.cleanChecks||typeof s.cleanChecks!=='object')s.cleanChecks={};if(!s.quests)s.quests={};if(!s.outfit)s.outfit={};return s}
+let S=load(),tab='path',vm=new Date(),urgeT=null;
+const MS=[1,3,7,14,30,60,100];
+const ACH=[['first_day','🌱','First clean day','best',1,15],['streak3','🔥','3-day streak','best',3,25],['streak7','🛡️','One week','best',7,60],['streak14','🎯','Two weeks','best',14,100],['streak30','🏅','30 days','best',30,200],['streak60','⚔️','60 days','best',60,350],['streak100','👑','100 days','best',100,600],['total10','🌳','10 clean days','clean',10,40],['total30','💎','30 clean days','clean',30,125],['total60','🌟','60 clean days','clean',60,250]];
+const QP=['Do 20 push-ups','Take a cold shower','Read for 10 minutes','Phone out of the bedroom tonight','Walk for 20 minutes','Drink 2 litres of water','Plan tomorrow in 5 minutes','Stretch for 10 minutes'];
+const MSG={
+slip:{firm:['That one is on the record. Own it, reset your space, and make the next hour count.','You broke the plan. No drama, no hiding: name the trigger and remove it.','Not your best moment. Stand up, change rooms, and get back to your responsibilities.','A slip is data. What were you doing five minutes before? Fix that part.'],
+hard:['Seriously? One job today and you folded. That choice was weak and you know it. Get up and do 20 push-ups. Now.','The rooster is NOT impressed. You saw it coming and walked straight in. Embarrassing. Prove me wrong in the next hour.','You made a promise and bailed on it. Disgraceful. Phone away, cold water on your face, and move. No sulking.','Soft move. Every bit of self-control you built, thrown away for a few minutes. Earn it back: write the trigger down, then do something hard.','Pathetic effort. The choice, not you, but the choice. Don’t spiral, don’t hide. Start the next hour like you mean it.']},
+clean:{firm:['Day closed clean. That is real follow-through. Protect tonight too.','Good work. Keep the same boundaries tomorrow.','You did what you said you would do. Repeat it.'],
+hard:['About time. Don’t get cocky, tomorrow tests you again.','Fine. Acceptable. Now go earn tomorrow as well.','Clean day logged. That’s the minimum standard, and you met it. Keep going.']},
+base:{firm:['Another day. Show up for it.','Lock in. One decision at a time.'],hard:['Another day to prove yourself. Don’t waste it.','Clock’s ticking. Do something hard. Now.']}};
+const pick=a=>a[Math.floor(Math.random()*a.length)],mode=()=>S.hard?'hard':'firm';
+function rooster(m,w){m=m||'happy';w=w||110;const o=S.outfit||{};
+const brow={mad:'<path d="M157 28L175 36" stroke="#2a1608" stroke-width="4" stroke-linecap="round"/>',sad:'<path d="M159 37L175 28" stroke="#2a1608" stroke-width="4" stroke-linecap="round"/>',proud:'<path d="M158 41q8-8 16 0" stroke="#2a1608" stroke-width="4" fill="none" stroke-linecap="round"/>'}[m]||'';
+const eye=m==='proud'?'':'<g class="eye"><circle cx="166" cy="39" r="5.5" fill="#ffd34a"/><circle cx="167" cy="39" r="3" fill="#120a04"/><circle cx="168.3" cy="37.7" r="1" fill="#fff"/></g>';
+const cape=o.back==='cape'?'<path d="M104 74C56 82 46 140 68 178L114 150z" fill="#d62839"/><path d="M104 76C80 96 76 140 90 172" stroke="#9e1525" stroke-width="3" fill="none"/>':'';
+const head=o.head==='crown'?'<path d="M146 24L150 4l8 10 6-14 6 14 8-10 4 20z" fill="#ffc800" stroke="#c99700" stroke-width="2" stroke-linejoin="round"/><circle cx="164" cy="12" r="2.5" fill="#ff4b4b"/>':o.head==='band'?'<path d="M146 30q14-9 28 0v6q-14-9-28 0z" fill="#ff4b4b"/><path d="M146 31l-16 4 8 6z" fill="#ff4b4b"/>':'';
+const shades=o.eyes==='shades'?'<rect x="155" y="31" width="23" height="12" rx="5" fill="#111"/><path d="M158 34h7" stroke="#fff" stroke-opacity=".5" stroke-width="2"/>':'';
+const chain=o.neck==='chain'?'<path d="M124 86q16 26 38 10" stroke="#ffc800" stroke-width="4" fill="none" stroke-dasharray="6 3"/><circle cx="144" cy="104" r="6" fill="#ffc800" stroke="#c99700" stroke-width="2"/>':'';
+return `<div class="rw m-${m}" style="width:${w}px;height:${w}px"><svg viewBox="0 -16 200 216" width="${w}" height="${w}"><defs><linearGradient id="gb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f59a22"/><stop offset=".55" stop-color="#c2410c"/><stop offset="1" stop-color="#6e1f0e"/></linearGradient><linearGradient id="gt" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#34f0b0"/><stop offset=".5" stop-color="#0a7d6e"/><stop offset="1" stop-color="#0b2a5a"/></linearGradient><linearGradient id="gr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff7a2e"/><stop offset="1" stop-color="#7a1810"/></linearGradient><linearGradient id="gh" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd84a"/><stop offset="1" stop-color="#e8791a"/></linearGradient><linearGradient id="gc" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff6b6b"/><stop offset="1" stop-color="#c4161c"/></linearGradient><linearGradient id="gw" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a8340f"/><stop offset="1" stop-color="#3a1208"/></linearGradient></defs>
+${cape}<path d="M60 108C6 104-6 44 30 14C28 54 48 74 68 88z" fill="url(#gt)"/><path d="M58 118C2 128-10 74 8 44C16 78 40 100 66 104z" fill="url(#gr)"/><path d="M62 96C30 70 36 26 70 12C62 48 78 66 90 80z" fill="url(#gt)" opacity=".92"/><path d="M30 20C32 50 50 72 66 86" stroke="#9dffe0" stroke-opacity=".4" stroke-width="2" fill="none"/>
+<path d="M96 150l-2 32M122 148l-2 34" stroke="#d99a1e" stroke-width="7" stroke-linecap="round"/><path d="M80 184h22M106 184h22" stroke="#d99a1e" stroke-width="6" stroke-linecap="round"/>
+<path d="M56 100C56 150 92 162 128 152C152 144 160 118 154 92C150 74 120 70 96 76C72 82 56 86 56 100z" fill="url(#gb)"/>
+<path d="M124 80C154 92 160 122 134 148C152 124 146 98 124 80z" fill="#16241c" opacity=".9"/>
+<path d="M78 100C90 142 128 142 138 112C122 122 98 114 78 100z" fill="url(#gw)"/><path d="M92 112q14 14 36 6M88 120q16 14 38 8" stroke="#e8791a" stroke-opacity=".6" stroke-width="2" fill="none"/>
+<path d="M108 80C116 52 132 42 148 38L160 62C152 82 142 98 128 102z" fill="url(#gh)"/><path d="M114 78l6 16M122 72l8 18M130 66l9 18M138 60l10 16" stroke="#c2570f" stroke-opacity=".6" stroke-width="2"/>
+<ellipse cx="160" cy="40" rx="17" ry="19" fill="#c84a1a"/><ellipse cx="166" cy="43" rx="10" ry="13" fill="#e02b2b"/>
+<path d="M148 28C144 10 153 6 156 18C158 4 167 4 167 18C171 8 180 12 174 28z" fill="url(#gc)"/>
+<path d="M174 36L196 45L174 51z" fill="#f2b81c"/><path d="M174 47L190 46L174 51z" fill="#c98a0a"/><path d="M172 54C169 72 181 74 179 56z" fill="url(#gc)"/>
+${eye}${brow}${shades}${chain}${head}</svg></div>`}
+function roosterOld(m,w){m=m||'happy';w=w||110;
+ const br=m==='mad'?'<path d="M43 29l14 8M81 29l-14 8" stroke="#4b4b4b" stroke-width="4" stroke-linecap="round"/>':m==='sad'?'<path d="M43 36l14-7M81 36l-14-7" stroke="#4b4b4b" stroke-width="4" stroke-linecap="round"/>':'';
+ const sh=m==='proud'?'<rect x="41" y="33" width="22" height="13" rx="5" fill="#222"/><rect x="66" y="33" width="22" height="13" rx="5" fill="#222"/>':'<circle cx="52" cy="40" r="7" fill="#fff"/><circle cx="76" cy="40" r="7" fill="#fff"/><circle cx="53" cy="41" r="3.5" fill="#222"/><circle cx="75" cy="41" r="3.5" fill="#222"/>';
+ const bl=(m==='happy'||m==='proud')?'<circle cx="43" cy="52" r="4" fill="#ff7a7a" opacity=".6"/><circle cx="85" cy="52" r="4" fill="#ff7a7a" opacity=".6"/>':'';
+ return `<svg viewBox="0 0 128 124" width="${w}" height="${w}" aria-hidden="true"><ellipse cx="22" cy="62" rx="9" ry="22" fill="#1cb0f6" transform="rotate(-25 22 62)"/><ellipse cx="14" cy="72" rx="8" ry="20" fill="#58cc02" transform="rotate(-45 14 72)"/><ellipse cx="30" cy="54" rx="8" ry="20" fill="#ff4b4b" transform="rotate(-8 30 54)"/><path d="M54 104v14M76 104v14" stroke="#ffc800" stroke-width="5" stroke-linecap="round"/><ellipse cx="64" cy="82" rx="32" ry="26" fill="#ff9600"/><ellipse cx="68" cy="90" rx="20" ry="14" fill="#ffd89b"/><circle cx="64" cy="42" r="26" fill="#ffb02e"/><circle cx="53" cy="16" r="8" fill="#ff4b4b"/><circle cx="64" cy="12" r="9" fill="#ff4b4b"/><circle cx="75" cy="16" r="8" fill="#ff4b4b"/>${sh}${br}${bl}<path d="M56 49h16l-8 12z" fill="#ffc800"/><ellipse cx="64" cy="66" rx="4" ry="6" fill="#ff4b4b"/></svg>`}
+function evs(){return new Set(S.events.map(e=>e.day))}
+function stats(){const t=today(),ev=evs();let cur=0,c=S.cleanChecks[t]?pk(t):add(pk(t),-1);
+ if(!ev.has(t)){while(dk(c)>=S.startDate&&!ev.has(dk(c))){cur++;c=add(c,-1)}}
+ let best=0,run=0,clean=0;for(let i=0;i<=diff(S.startDate,t);i++){const k=dk(add(pk(S.startDate),i));if(ev.has(k))run=0;else if(k!==t||S.cleanChecks[k]){run++;clean++;best=Math.max(best,run)}}
+ return{cur,best,clean}}
+const lvl=()=>Math.floor(S.xp/100)+1;
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}render();sync()}
+function toast(m){const t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(toast.h);toast.h=setTimeout(()=>t.style.display='none',2800)}
+function beep(f){if(S.mute)return;try{const a=new (window.AudioContext||window.webkitAudioContext)(),o=a.createOscillator(),g=a.createGain();o.frequency.value=f;o.connect(g);g.connect(a.destination);g.gain.setValueAtTime(.15,a.currentTime);g.gain.exponentialRampToValueAtTime(.001,a.currentTime+.35);o.start();o.stop(a.currentTime+.35)}catch(e){}}
+function boom(){const cs=['#58cc02','#1cb0f6','#ffc800','#ff4b4b','#ff9600'];for(let i=0;i<40;i++){const d=document.createElement('i');d.className='cf';d.style.left=Math.random()*100+'vw';d.style.background=cs[i%5];d.style.animationDelay=Math.random()*.5+'s';document.body.appendChild(d);setTimeout(()=>d.remove(),3000)}}
+function modal(h){const m=$('#modal');m.innerHTML='<div class="card">'+h+'</div>';m.classList.add('on')}
+function close(){$('#modal').classList.remove('on')}
+function result(mood,title,text,extra){modal(`${rooster(mood,130)}<h2>${title}</h2><p>${text}</p>${extra||''}<button class="btn ${mood==='sad'||mood==='mad'?'r':''}" data-a="close">${mood==='sad'?'I’ll fix it':'Continue'}</button>`)}
+function checkAch(){const st=stats();let got=[];ACH.forEach(a=>{if(!S.achievements.includes(a[0])&&st[a[3]]>=a[4]){S.achievements.push(a[0]);S.xp+=a[5];S.gems+=Math.ceil(a[5]/5);got.push(a[1]+' '+a[2])}});if(got.length){boom();beep(880);setTimeout(()=>toast('Achievement unlocked: '+got.join(', ')),400)}}
+function dayQ(){const n=diff('2024-01-01',today());return[n%8,(n+3)%8,(n+5)%8]}
+const act={
+ tab(d){tab=d.t;render();scrollTo(0,0);if(tab==='squad'&&API())S.joined.forEach(poll)},close,
+ clean(){const k=today();if(evs().has(k))return toast('A slip is already logged today.');if(S.cleanChecks[k])return toast('Today is already marked clean.');
+  S.cleanChecks[k]=new Date().toISOString();S.xp+=10;S.gems+=5;S.checkInXPDays.push(k);checkAch();save();boom();beep(660);result('proud','Day locked in!',pick(MSG.clean[mode()])+'<br><b>+10 XP · +5 💎</b>')},
+ slip(){modal(`${rooster('sad',100)}<h2>Log a slip?</h2><p>Be honest. What triggered it?</p><div class="chips">${['Bored','Stressed','Lonely','Tired','Other'].map(x=>`<button class="btn sm r" data-a="tag" data-tag="${x}">${x}</button>`).join('')}</div><button class="btn ghost" data-a="tag" data-tag="">Skip tag</button><button class="btn ghost" data-a="close">Cancel</button>`)},
+ tag(d){const now=new Date(),day=dk(now);if(S.cleanChecks[day]){delete S.cleanChecks[day];if(S.checkInXPDays.includes(day)){S.checkInXPDays=S.checkInXPDays.filter(x=>x!==day);S.xp=Math.max(0,S.xp-10)}}
+  S.events.push({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),timestamp:now.toISOString(),day,tag:d.tag||''});save();beep(200);result('sad','Slip recorded',pick(MSG.slip[mode()])+'<br><b>Comeback quest: do all 3 daily quests to win back momentum.</b>')},
+ urge(){let left=600;const u=$('#urge');u.classList.add('on');
+  const draw=()=>{u.innerHTML=`${rooster('mad',90)}<div class="mut">URGE RESCUE · it passes in minutes</div><div class="time">${Math.floor(left/60)}:${pad(left%60)}</div><div class="breath">${Math.floor((600-left)/4)%2?'Breathe out':'Breathe in'}</div><p>${left>0?'Out of the room. 20 push-ups, then cold water on your face. Do NOT touch your phone.':'You rode it out. That’s real discipline.'}</p><button class="btn" data-a="ride" ${left>0?'disabled style="opacity:.4"':''}>I rode it out · +25 XP</button><button class="btn ghost" data-a="giveup">I gave in</button>`};
+  draw();clearInterval(urgeT);urgeT=setInterval(()=>{left--;if(left<=0){left=0;clearInterval(urgeT);beep(880)}draw()},1000)},
+ ride(){clearInterval(urgeT);$('#urge').classList.remove('on');S.xp+=25;S.gems+=10;S.urges++;checkAch();save();boom();beep(760);result('proud','Urge beaten!','Ten minutes and it’s gone. That is exactly how you win.<br><b>+25 XP · +10 💎</b>')},
+ giveup(){clearInterval(urgeT);$('#urge').classList.remove('on');act.slip()},
+ quest(d){const k=today(),q=S.quests[k]=S.quests[k]||[];if(q.includes(+d.i))return;q.push(+d.i);S.xp+=10;S.gems+=5;checkAch();save();beep(600);if(q.length===3){boom();toast('All quests done! +15 💎 bonus');S.gems+=15;save()}else toast('Quest done · +10 XP · +5 💎')},
+ mprev(){vm=new Date(vm.getFullYear(),vm.getMonth()-1,1);render()},
+ mnext(){const n=new Date(vm.getFullYear(),vm.getMonth()+1,1);if(n<=new Date())vm=n;render()},
+ mode(d){S.hard=d.h==='1';save()},snd(){S.mute=!S.mute;save()},auto(){S.auto=!S.auto;if(S.auto)autoFill();save()},
+ buy(d){const i=SHOP.find(x=>x[0]===d.id);if(!i)return;if(!S.owned.includes(i[0])){if(S.gems<i[4])return toast('Not enough gems yet');S.gems-=i[4];S.owned.push(i[0]);S.outfit[i[3]]=i[0];beep(700);boom()}else S.outfit[i[3]]=S.outfit[i[3]]===i[0]?null:i[0];save()},
+ mkform(){if(!S.nick)return toast('Set a nickname first');modal('<h2>New challenge</h2><input class="in" id="cn" maxlength="24" placeholder="Challenge name"><div class="mut">Goal: clean-streak days</div><select class="in" id="cg"><option>7</option><option>14</option><option selected>30</option><option>60</option><option>100</option></select><button class="btn" data-a="mk">Create</button><button class="btn ghost" data-a="close">Cancel</button>')},
+ mk(){const nm=$('#cn').value.trim();if(!nm)return toast('Give it a name');if(API())return call('POST','/c',{name:nm,goal:+$('#cg').value}).then(d=>joinC(d.code)).catch(()=>toast('Could not reach the Squad server'));const A='ABCDEFGHJKMNPQRSTUVWXYZ23456789';let c='';for(let i=0;i<5;i++)c+=A[Math.floor(Math.random()*A.length)];DB.doc('challenges/'+c).set({name:nm,goal:+$('#cg').value,owner:UID,start:today()}).then(()=>joinC(c)).catch(()=>toast('Could not create (no write access?)'))},
+ joinform(){if(!S.nick)return toast('Set a nickname first');modal('<h2>Join a challenge</h2><input class="in" id="jc" maxlength="5" placeholder="5-letter code" style="text-transform:uppercase"><button class="btn" data-a="join">Join</button><button class="btn ghost" data-a="close">Cancel</button>')},
+ join(){const c=$('#jc').value.trim().toUpperCase();if(!c)return;if(API())return call('GET','/c/'+c).then(()=>joinC(c)).catch(()=>toast('No challenge with that code'));DB.doc('challenges/'+c).get().then(s=>s.exists?joinC(c):toast('No challenge with that code')).catch(()=>toast('Could not look that up'))},
+ setapi(){const v=$('#ap').value.trim().replace(/\/$/,'');if(v.indexOf('https://')!==0)return toast('It must start with https://');S.api=v;S.joined.forEach(poll);save()},leave(d){S.joined=S.joined.filter(x=>x!==d.c);if(API())call('DELETE','/c/'+d.c+'/m',{tok:S.tok}).catch(()=>{});if(DB&&UID)DB.doc('challenges/'+d.c+'/members/'+UID).delete().catch(()=>{});lastSync='';save()},
+ export(){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(S,null,2)],{type:'application/json'}));a.download='discipline-ledger-backup.json';a.click();toast('Backup exported')},
+ import(){$('#file').click()},
+ reset(){modal('<h2>Erase everything?</h2><p>This deletes all records on this device. Export a backup first.</p><button class="btn r" data-a="resetyes">Yes, erase</button><button class="btn ghost" data-a="close">Cancel</button>')},
+ resetyes(){localStorage.removeItem(KEY);S=load();close();save()}};
+document.addEventListener('click',e=>{const a=e.target.closest('[data-a]');if(a){close_if(a);act[a.dataset.a]&&act[a.dataset.a](a.dataset)}});
+function close_if(a){if(['tag','clean','tab'].includes(a.dataset.a))close()}
+$('#file').onchange=async e=>{try{const x=JSON.parse(await e.target.files[0].text());if(!Array.isArray(x.events)||!x.cleanChecks||!x.startDate)throw 0;S={...load(),...x};save();checkAch();save();toast('Backup imported')}catch(_){toast('That file is not a valid backup')}};
+const V={
+path(){const st=stats(),t=today(),ev=evs(),pend=!ev.has(t)&&!S.cleanChecks[t];
+ const mood=ev.has(t)?'sad':S.cleanChecks[t]?'proud':'mad',say=ev.has(t)?(S.hard?'You slipped today. Fix the next hour. No excuses.':'You slipped. Reset and protect the rest of today.'):S.cleanChecks[t]?pick(MSG.clean[mode()]):pick(MSG.base[mode()]);
+ const nextM=MS.find(m=>m>st.cur)||st.cur+7,from=Math.max(1,st.cur-2),to=Math.max(nextM,st.cur+3);let nodes='';
+ for(let n=from;n<=to;n++){const done=n<=st.cur,now=n===st.cur+1,ms=MS.includes(n),off=Math.round(Math.sin(n*1.1)*62);
+  nodes+=`<div class="node ${done?'done':now?'now':ms?'gold':''}" style="transform:translateX(${off}px)">${now?`<span class="lab">${S.cleanChecks[t]?'NEXT':'TODAY'}</span>`:''}${done?'✓':ms?'🎁':now?'★':'🔒'}</div>`}
+ return `<div class="coach">${rooster(mood,110)}<div class="bubble">${say}</div></div>
+ ${pend?'<button class="btn" data-a="clean">✓ Clean day</button>':''}<button class="btn b" data-a="urge">🛟 I have an urge</button><button class="btn ghost" data-a="slip" style="color:var(--r)">Log a slip</button>
+ ${weekRing()}<h2>Your path</h2><div class="mut">Day ${st.cur+1} · next chest at day ${nextM}</div><div class="path">${nodes}</div>`},
+quests(){const q=S.quests[today()]||[],ids=dayQ();return `<h2>Daily quests</h2><div class="mut" style="margin-bottom:10px">${q.length}/3 done · finish all 3 for +15 💎</div>`+ids.map(i=>`<div class="card q ${q.includes(i)?'done':''}" data-a="quest" data-i="${i}"><div class="chk">${q.includes(i)?'✓':''}</div><div style="flex:1">${QP[i]}</div><div class="mut">+10 ⚡</div></div>`).join('')},
+stats(){const st=stats(),t=today(),ev=evs(),y=vm.getFullYear(),m=vm.getMonth(),off=new Date(y,m,1).getDay(),cnt=new Date(y,m+1,0).getDate();
+ let cal=['S','M','T','W','T','F','S'].map(x=>`<div class="h">${x}</div>`).join('')+'<div class="h"></div>'.repeat(off);
+ for(let n=1;n<=cnt;n++){const k=y+'-'+pad(m+1)+'-'+pad(n);let c='x';if(k>=S.startDate&&k<=t)c=ev.has(k)?'e':(k===t&&!S.cleanChecks[k])?'':'c';cal+=`<div class="${c} ${k===t?'t':''}">${n}</div>`}
+ const bk=[0,0,0,0],tags={};S.events.forEach(e=>{const h=new Date(e.timestamp).getHours();bk[h>=5&&h<12?0:h<17?1:h<22?2:3]++;if(e.tag)tags[e.tag]=(tags[e.tag]||0)+1});
+ const mx=Math.max(1,...bk),top=Object.entries(tags).sort((a,b)=>b[1]-a[1])[0],names=['Morning','Afternoon','Evening','Night'];
+ return `<h2>Stats</h2><div class="grid"><div class="card stat"><b>🔥 ${st.cur}</b>Current streak</div><div class="card stat"><b>🏆 ${st.best}</b>Best streak</div><div class="card stat"><b>🌱 ${st.clean}</b>Clean days</div><div class="card stat"><b>🛟 ${S.urges}</b>Urges beaten</div></div>
+ <div class="card"><div class="row"><button class="btn ghost sm" data-a="mprev">‹</button><b>${new Intl.DateTimeFormat(undefined,{month:'long',year:'numeric'}).format(vm)}</b><button class="btn ghost sm" data-a="mnext">›</button></div><div class="cal">${cal}</div></div>
+ <div class="card"><b>When slips happen</b>${S.events.length?bk.map((v,i)=>`<div class="row"><span style="width:84px">${names[i]}</span><div class="bar" style="flex:1"><i style="width:${v/mx*100}%"></i></div><span>${v}</span></div>`).join('')+(top?`<div class="mut">Top trigger: ${top[0]}</div>`:''):'<div class="mut">No slips logged. Keep it that way.</div>'}</div>`},
+shop(){const own=i=>S.owned.includes(i[0]);return `<h2>Shop</h2><div style="text-align:center">${rooster('proud',170)}</div><div class="mut" style="text-align:center;margin-bottom:10px">💎 ${S.gems} gems · earn them from clean days, quests and urges</div>`+SHOP.map(i=>{const on=S.outfit[i[3]]===i[0];return `<div class="card row"><div style="font-size:30px">${i[1]}</div><div style="flex:1"><b>${i[2]}</b></div><button class="btn sm ${own(i)?(on?'':'b'):(S.gems>=i[4]?'':'ghost')}" data-a="buy" data-id="${i[0]}">${own(i)?(on?'Wearing':'Equip'):'💎 '+i[4]}</button></div>`}).join('')},
+squad(){if(!API()&&(!DB||!UID))return `<h2>Squad</h2><div class="card" style="text-align:center">${rooster('happy',100)}<p>Challenges need a Squad server. Paste your server address below. Your own data always stays on your phone.</p><input class="in" id="ap" placeholder="https://rooster-squad.yourname.workers.dev"><button class="btn" data-a="setapi">Save server</button></div>`;
+ const lists=S.joined.map(c=>{const x=CH[c]||{members:[]},inf=x.info;if(!inf)return `<div class="card mut">Loading ${esc(c)}…</div>`;const ms=[...x.members].sort((a,b)=>(b.s||0)-(a.s||0));
+  return `<div class="card"><div class="row"><b>${esc(inf.name)}</b><span class="code">${esc(c)}</span></div><div class="mut">Goal: ${+inf.goal} clean days in a row · share the code with friends</div>`+(ms.map((m,i)=>`<div class="lb"><span>${['🥇','🥈','🥉'][i]||i+1+'.'}</span><span style="width:90px;overflow:hidden;text-overflow:ellipsis">${esc(m.n||'Rooster')}${m.id===(API()?S.myid:UID)?' (you)':''}</span><div class="bar"><i style="width:${Math.min(100,(m.s||0)/inf.goal*100)}%"></i></div><span>🔥${+m.s||0}</span></div>`).join('')||'<div class="mut">No one yet.</div>')+`<button class="btn ghost sm" data-a="leave" data-c="${esc(c)}">Leave</button></div>`}).join('');
+ return `<h2>Squad</h2><div class="card"><div class="mut">Nickname. Friends only see this, your streak and your weekly count. Never your slips.</div><input class="in" value="${esc(S.nick)}" maxlength="16" placeholder="Nickname" onchange="S.nick=this.value.slice(0,16);lastSync='';save()"></div><button class="btn b" data-a="mkform">Create a challenge</button><button class="btn ghost" data-a="joinform">Join with a code</button>${lists}`},
+me(){const L=lvl(),p=S.xp%100;return `<div class="coach">${rooster('happy',90)}<div><h2 style="margin:0">Level ${L}</h2><div class="mut">${S.xp} XP · ${S.achievements.length}/${ACH.length} badges</div></div></div>
+ <div class="bar" style="margin-bottom:14px"><i style="width:${p}%"></i></div>
+ <div class="card"><b>Achievements</b><div class="ach" style="margin-top:10px">${ACH.map((a,i)=>`<div style="--p:${i+1}" class="${S.achievements.includes(a[0])?'on':''}"><span>${a[1]}</span>${a[2]}</div>`).join('')}</div></div>
+ <div class="card"><b>Coach intensity</b><div class="seg" style="margin:10px 0"><button class="btn ${S.hard?'ghost':''}" data-a="mode" data-h="0">Firm</button><button class="btn ${S.hard?'r':'ghost'}" data-a="mode" data-h="1">Savage</button></div>
+ <div class="row"><span>Auto-record clean days</span><button class="btn sm ghost" data-a="auto">${S.auto?'On':'Off'}</button></div><div class="row"><span>Sound effects</span><button class="btn sm ghost" data-a="snd">${S.mute?'Off':'On'}</button></div></div>
+ <div class="card"><b>Your data</b><div class="mut">Saved on this device only.</div><button class="btn b sm" data-a="export">Export</button><button class="btn ghost sm" data-a="import">Import</button><button class="btn r sm" data-a="reset">Erase</button></div>`}};
+function render(){const st=stats();$('#hs').textContent=st.cur;$('#hx').textContent=S.xp;$('#hg').textContent=S.gems;$('#view').innerHTML=V[tab]();document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t===tab))}
+const SHOP=[['shades','😎','Dark Shades','eyes',40],['band','🥋','Warrior Headband','head',25],['chain','⛓️','Gold Chain','neck',60],['cape','🦸','Hero Cape','back',90],['crown','👑','Royal Crown','head',150]];
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const IC=['🏃','🚴','🏍️','🚗','🏎️','✈️','🚀','🚁','🛸','🛰️'],NM=['1-day streak','3-day streak','7-day streak','14-day streak','30-day streak','60-day streak','100-day streak','10 days total','30 days total','60 days total'];
+ACH.forEach((a,i)=>{a[1]=IC[i];a[2]=NM[i]});
+let DB=null,UID=null,lastSync='';const CH={},watched={};
+function weekInfo(){const t=today(),ev=evs(),n0=new Date(),mon=add(new Date(n0.getFullYear(),n0.getMonth(),n0.getDate()),-((n0.getDay()+6)%7));let n=0,dots='';['M','T','W','T','F','S','S'].forEach((l,i)=>{const k=dk(add(mon,i)),c=k>=S.startDate&&k<=t&&!ev.has(k)&&(k!==t||!!S.cleanChecks[k]);if(c)n++;dots+=`<div class="wd ${c?'c':ev.has(k)?'e':''}">${l}</div>`});return{n,dots}}
+function weekRing(){const w=weekInfo(),g=S.week||5,p=Math.min(1,w.n/g),C=2*Math.PI*30;return `<div class="card row"><svg width="76" height="76" viewBox="0 0 76 76"><circle cx="38" cy="38" r="30" fill="none" stroke="var(--line)" stroke-width="9"/><circle cx="38" cy="38" r="30" fill="none" stroke="${p>=1?'var(--y)':'var(--g)'}" stroke-width="9" stroke-linecap="round" stroke-dasharray="${C*p} ${C}" transform="rotate(-90 38 38)"/><text x="38" y="44" text-anchor="middle" font-size="18" font-weight="900" fill="currentColor">${w.n}/${g}</text></svg><div style="flex:1"><b>Weekly goal</b><div class="mut">${p>=1?'Goal smashed! 🏆':g+' clean days this week'}</div><div class="wk">${w.dots}</div></div></div>`}
+function autoFill(){if(!S.auto)return 0;const t=today(),ev=evs();let n=0;for(let i=0;i<diff(S.startDate,t);i++){const d=add(pk(S.startDate),i),k=dk(d);if(!ev.has(k)&&!S.cleanChecks[k]){S.cleanChecks[k]=new Date(d.getFullYear(),d.getMonth(),d.getDate(),23,59).toISOString();S.xp+=10;S.gems+=5;S.checkInXPDays.push(k);n++}}
+ if(n){checkAch();save();setTimeout(()=>toast('Auto-recorded '+n+' clean day'+(n>1?'s':'')+' · +'+n*10+' XP'),700)}return n}
+function sync(){if(API())return apiSync();if(!DB||!UID||!S.joined.length)return;const me={n:S.nick||'Rooster',s:stats().cur,w:weekInfo().n},key=JSON.stringify(me)+S.joined.join();if(key===lastSync)return;lastSync=key;S.joined.forEach(c=>DB.doc('challenges/'+c+'/members/'+UID).set(me).catch(()=>{}))}
+function watch(c){if(API()){poll(c);return}if(watched[c]||!DB)return;watched[c]=1;CH[c]={info:null,members:[]};const r=()=>{if(tab==='squad')render()};DB.doc('challenges/'+c).onSnapshot(s=>{CH[c].info=s.exists?s.data():null;r()},()=>{});DB.collection('challenges/'+c+'/members').onSnapshot(s=>{CH[c].members=s.docs.map(d=>({id:d.id,...d.data()}));r()},()=>{})}
+function joinC(c){if(!S.joined.includes(c))S.joined.push(c);watch(c);lastSync='';save();close();toast('Joined challenge '+c)}
+const API_DEFAULT='';const API=()=>(S.api||API_DEFAULT).replace(/\/$/,'');
+async function call(m,path,body){const r=await fetch(API()+path,{method:m,headers:{'content-type':'application/json'},body:body?JSON.stringify(body):undefined});if(!r.ok)throw 0;return r.json()}
+function poll(c){call('GET','/c/'+c).then(d=>{CH[c]={info:{name:d.name,goal:d.goal},members:d.members};if(tab==='squad')render()}).catch(()=>{})}
+function apiSync(){if(!S.joined.length)return;if(!S.tok){S.tok=(crypto.randomUUID?crypto.randomUUID():Math.random().toString(36).slice(2)+Date.now().toString(36)+Math.random().toString(36).slice(2));try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+ const me={n:S.nick||'Rooster',s:stats().cur,w:weekInfo().n},key=JSON.stringify(me)+S.joined.join();if(key===lastSync)return;lastSync=key;S.joined.forEach(c=>call('PUT','/c/'+c+'/m',{tok:S.tok,...me}).then(r=>{S.myid=r.id;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}poll(c)}).catch(()=>{}))}
+async function initDb(){try{DB=await claude.use('db');const u=await claude.use('user');UID=u?await u.id():null;if(DB&&UID){S.joined.forEach(watch);sync()}}catch(e){}if(tab==='squad')render()}
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)autoFill()});
+autoFill();render();
+if(window.claude&&claude.use)setTimeout(initDb,0);
+if(API()){S.joined.forEach(poll);sync()}
+setInterval(()=>{if(API()&&tab==='squad'&&!document.hidden)S.joined.forEach(poll)},20000);
+</script></body></html>
