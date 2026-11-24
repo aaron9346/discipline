@@ -208,7 +208,7 @@ function autoFill(){if(!S.auto)return 0;const t=today(),ev=evs();let n=0;for(let
 function sync(){if(API())return apiSync();if(!DB||!UID||!S.joined.length)return;const me={n:S.nick||'Rooster',s:stats().cur,w:weekInfo().n},key=JSON.stringify(me)+S.joined.join();if(key===lastSync)return;lastSync=key;S.joined.forEach(c=>DB.doc('challenges/'+c+'/members/'+UID).set(me).catch(()=>{}))}
 function watch(c){if(API()){poll(c);return}if(watched[c]||!DB)return;watched[c]=1;CH[c]={info:null,members:[]};const r=()=>{if(tab==='squad')render()};DB.doc('challenges/'+c).onSnapshot(s=>{CH[c].info=s.exists?s.data():null;r()},()=>{});DB.collection('challenges/'+c+'/members').onSnapshot(s=>{CH[c].members=s.docs.map(d=>({id:d.id,...d.data()}));r()},()=>{})}
 function joinC(c){if(!S.joined.includes(c))S.joined.push(c);watch(c);lastSync='';save();close();toast('Joined challenge '+c)}
-const API_DEFAULT='';const API=()=>(S.api||API_DEFAULT).replace(/\/$/,'');
+const API_DEFAULT='https://rooster-squad.aaronvarghese03.workers.dev';const API=()=>(S.api||API_DEFAULT).replace(/\/$/,'');
 async function call(m,path,body){const r=await fetch(API()+path,{method:m,headers:{'content-type':'application/json'},body:body?JSON.stringify(body):undefined});if(!r.ok)throw 0;return r.json()}
 function poll(c){call('GET','/c/'+c).then(d=>{CH[c]={info:{name:d.name,goal:d.goal},members:d.members};if(tab==='squad')render()}).catch(()=>{})}
 function apiSync(){if(!S.joined.length)return;if(!S.tok){S.tok=(crypto.randomUUID?crypto.randomUUID():Math.random().toString(36).slice(2)+Date.now().toString(36)+Math.random().toString(36).slice(2));try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
