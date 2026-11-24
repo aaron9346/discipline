@@ -3,6 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#58cc02"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
 <title>Rooster Discipline</title>
+<link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-192.png"><meta name="apple-mobile-web-app-title" content="Rooster">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#fff;--card:#fff;--ink:#4b4b4b;--mut:#9a9a9a;--line:#e5e5e5;--soft:#f7f7f7;--g:#58cc02;--gd:#58a700;--b:#1cb0f6;--bd:#1899d6;--r:#ff4b4b;--rd:#ea2b2b;--y:#ffc800;--yd:#e5b400;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -228,4 +229,5 @@ autoFill();render();
 if(window.claude&&claude.use)setTimeout(initDb,0);
 if(API()){S.joined.forEach(poll);sync()}
 setInterval(()=>{if(API()&&tab==='squad'&&!document.hidden)S.joined.forEach(poll)},20000);
+if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
 </script></body></html>
