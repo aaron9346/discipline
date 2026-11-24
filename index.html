@@ -72,16 +72,21 @@ nav button span{font-size:21px}nav button{font-size:10px}
 .ach div span{font-size:calc(24px + var(--p,1)*1.6px)}.ach .on span{filter:drop-shadow(0 0 calc(var(--p,1)*1.2px) #ff9600)}
 .lb{display:flex;align-items:center;gap:8px;margin:7px 0}.lb .bar{flex:1}
 .code{font-size:22px;letter-spacing:3px;font-weight:900;color:var(--b)}
-body{padding-left:68px;padding-bottom:24px}
-nav{top:0;bottom:0;right:auto;width:68px;flex-direction:column;justify-content:flex-start;border-top:0;border-right:2px solid var(--line);padding:calc(64px + env(safe-area-inset-top,0px)) 0 0;overflow-y:auto}
-nav button{max-width:none;flex:none;width:100%;padding:12px 0 10px}
-#toast{bottom:24px;left:calc(50% + 34px)}
+body{padding-bottom:24px}
+nav{top:0;bottom:0;right:auto;width:220px;z-index:25;flex-direction:column;justify-content:flex-start;border-top:0;border-right:2px solid var(--line);padding:calc(70px + env(safe-area-inset-top,0px)) 10px 0;overflow-y:auto;transform:translateX(-105%);transition:transform .25s ease}
+nav.open{transform:none;box-shadow:6px 0 24px #0005}
+nav button{max-width:none;flex:none;width:100%;display:flex;align-items:center;gap:14px;text-align:left;padding:13px 14px;font-size:14px;border-radius:14px}
+nav button span{display:inline-block;font-size:22px}
+nav button.on{background:color-mix(in srgb,var(--b) 14%,transparent)}
+#scrim{position:fixed;inset:0;background:#0006;z-index:24;display:none}#scrim.on{display:block}
+#menu{background:none;border:0;font-size:26px;line-height:1;color:var(--ink);cursor:pointer;padding:0 8px 0 0}
+#toast{bottom:24px}
 </style></head>
 <body><div id="app">
-<header><span>🔥 <b id="hs">0</b></span><span>⚡ <b id="hx">0</b></span><span>💎 <b id="hg">0</b></span></header>
+<header><button id="menu" data-a="menu" aria-label="Menu">☰</button><span>🔥 <b id="hs">0</b></span><span>⚡ <b id="hx">0</b></span><span>💎 <b id="hg">0</b></span></header>
 <main id="view"></main></div>
 <nav><button data-a="tab" data-t="path"><span>🏠</span>Path</button><button data-a="tab" data-t="quests"><span>🎯</span>Quests</button><button data-a="tab" data-t="stats"><span>📊</span>Stats</button><button data-a="tab" data-t="squad"><span>🤝</span>Squad</button><button data-a="tab" data-t="shop"><span>🛍️</span>Shop</button><button data-a="tab" data-t="me"><span>👤</span>Me</button></nav>
-<div class="ov" id="modal"></div>
+<div id="scrim" data-a="menu"></div><div class="ov" id="modal"></div>
 <div class="urge" id="urge"></div>
 <div id="toast"></div>
 <input type="file" id="file" accept="application/json" style="display:none">
@@ -142,7 +147,7 @@ function result(mood,title,text,extra){modal(`${rooster(mood,130)}<h2>${title}</
 function checkAch(){const st=stats();let got=[];ACH.forEach(a=>{if(!S.achievements.includes(a[0])&&st[a[3]]>=a[4]){S.achievements.push(a[0]);S.xp+=a[5];S.gems+=Math.ceil(a[5]/5);got.push(a[1]+' '+a[2])}});if(got.length){boom();beep(880);setTimeout(()=>toast('Achievement unlocked: '+got.join(', ')),400)}}
 function dayQ(){const n=diff('2024-01-01',today());return[n%8,(n+3)%8,(n+5)%8]}
 const act={
- tab(d){tab=d.t;render();scrollTo(0,0);if(tab==='squad'&&API())S.joined.forEach(poll)},close,
+ menu(){$('nav').classList.toggle('open');$('#scrim').classList.toggle('on')},tab(d){$('nav').classList.remove('open');$('#scrim').classList.remove('on');tab=d.t;render();scrollTo(0,0);if(tab==='squad'&&API())S.joined.forEach(poll)},close,
  clean(){const k=today();if(evs().has(k))return toast('A slip is already logged today.');if(S.cleanChecks[k])return toast('Today is already marked clean.');
   S.cleanChecks[k]=new Date().toISOString();S.xp+=10;S.gems+=5;S.checkInXPDays.push(k);checkAch();save();boom();beep(660);result('proud','Day locked in!',pick(MSG.clean[mode()])+'<br><b>+10 XP · +5 💎</b>')},
  slip(){modal(`${rooster('sad',100)}<h2>Log a slip?</h2><p>Be honest. What triggered it?</p><div class="chips">${['Bored','Stressed','Lonely','Tired','Other'].map(x=>`<button class="btn sm r" data-a="tag" data-tag="${x}">${x}</button>`).join('')}</div><button class="btn ghost" data-a="tag" data-tag="">Skip tag</button><button class="btn ghost" data-a="close">Cancel</button>`)},
